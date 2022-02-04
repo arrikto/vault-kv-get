@@ -63,7 +63,7 @@ chmod +x /usr/local/bin/vault
 
 ```bash
 VAULT_KV_GET_VER=1.0.0
-wget https://github.com/karlschriek/vault-kv-get/releases/download/${VAULT_KV_GET_VER}/vault-kv-get
+wget https://github.com/karlschriek/vault-kv-get/releases/download/v${VAULT_KV_GET_VER}/vault-kv-get
 sudo mv vault-kv-get /usr/local/bin/vault-kv-get
 chmod +x /usr/local/bin/vault-kv-get
 ```
