@@ -31,12 +31,23 @@ func main() {
 	outputString := string(output)
 
 	re := regexp.MustCompile("<vault-kv-get>.*</vault-kv-get>")
-
 	matches := re.FindAllString(outputString, -1)
 
 	for _, match := range matches {
 		args := strings.Replace(strings.Replace(match, "<vault-kv-get>", "", -1), "</vault-kv-get>", "", -1)
 		err, secret, stderr := bashOut(fmt.Sprintf("vault kv get %s", args))
+		if stderr != "" || err != nil {
+			panic(stderr)
+		}
+		outputString = strings.Replace(outputString, match, secret, -1)
+	}
+
+	re = regexp.MustCompile("<aws-ssm-get>.*</aws-ssm-get>")
+	matches = re.FindAllString(outputString, -1)
+
+	for _, match := range matches {
+		args := strings.Replace(strings.Replace(match, "<aws-ssm-get>", "", -1), "</aws-ssm-get>", "", -1)
+		err, secret, stderr := bashOut(fmt.Sprintf("aws secretsmanager get-secret-value %s", args))
 		if stderr != "" || err != nil {
 			panic(stderr)
 		}
