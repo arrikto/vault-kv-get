@@ -3,4 +3,4 @@ kind: Secret
 metadata:
   name: my-secret
 stringData:
-  someSecret: <aws-ssm-get> --secret-id kv-get/FOO  | jq -r '.SecretString | fromjson | .entry' </aws-ssm-get>
+  someSecret: <aws-sms-get> --secret-id kv-get/FOO  | jq -r '.SecretString | fromjson | .entry' </aws-sms-get>

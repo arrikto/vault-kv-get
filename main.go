@@ -42,11 +42,11 @@ func main() {
 		outputString = strings.Replace(outputString, match, secret, -1)
 	}
 
-	re = regexp.MustCompile("<aws-ssm-get>.*</aws-ssm-get>")
+	re = regexp.MustCompile("<aws-sms-get>.*</aws-sms-get>")
 	matches = re.FindAllString(outputString, -1)
 
 	for _, match := range matches {
-		args := strings.Replace(strings.Replace(match, "<aws-ssm-get>", "", -1), "</aws-ssm-get>", "", -1)
+		args := strings.Replace(strings.Replace(match, "<aws-sms-get>", "", -1), "</aws-sms-get>", "", -1)
 		err, secret, stderr := bashOut(fmt.Sprintf("aws secretsmanager get-secret-value %s", args))
 		if stderr != "" || err != nil {
 			panic(stderr)
